@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间 用来区分sql id-->
+<mapper namespace="com.watcher.dao.ITaskDao">
+
+    <select id="getTaskByStuid" resultType="Task">
+        select * from task where stuid=#{stuid}
+    </select>
+
+    <insert id="insertTask" parameterType="Task">
+        insert into task (content,starttime,endtime,stuid) values (#{content},#{starttime},#{endtime},#{stuid})
+    </insert>
+
+    <delete id="delTask" >
+        delete from task where id=#{id}
+    </delete>
+</mapper>
+

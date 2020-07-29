@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间 用来区分sql id-->
+<mapper namespace="com.watcher.dao.IUserDao">
+    
+    <insert id="signUp" parameterType="User">
+        insert into user (username,password,identity) select #{username},#{password},#{identity} FROM DUAL WHERE not EXISTS(SELECT username FROM `user` WHERE username = #{username})
+    </insert>
+
+    <select id="signIn" resultType="User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+
+    <update id="back">
+        update user set status = "normal" where id = #{stuid}
+    </update>
+
+    <update id="leave">
+        update user set status = "leave" where id = #{stuid}
+    </update>
+
+</mapper>
+

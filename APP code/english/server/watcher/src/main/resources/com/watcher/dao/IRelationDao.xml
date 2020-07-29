@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:命名空间 用来区分sql id-->
+<mapper namespace="com.watcher.dao.IRelationDao">
+
+    <select id="getRelations" resultType="User">
+        select * from user where id in (select stuid from relation where teaid=#{id})
+    </select>
+
+    <select id="getAllStu" resultType="User">
+        select * from user where identity = "stu"
+    </select>
+
+    <select id="getAllLink" resultType="User">
+        select * from user where id in (select stuid from relation)
+    </select>
+
+
+
+    <insert id="insertRelation">
+        insert into relation (teaid,stuid) select #{teaid},#{stuid} from dual where not exists (select id from relation where stuid=#{stuid} and teaid=#{teaid})
+    </insert>
+
+    <delete id="closeRelation">
+        delete from relation where teaid=#{teaid} and stuid=#{stuid}
+    </delete>
+
+</mapper>
+
